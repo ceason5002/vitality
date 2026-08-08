@@ -6,5 +6,5 @@ class WorkoutTemplate < ApplicationRecord
 
   validates :name, presence: true
 
-  accepts_nested_attributes_for :workout_template_exercises, allow_destroy: true
+  accepts_nested_attributes_for :workout_template_exercises, allow_destroy: true, reject_if: :all_blank
 end

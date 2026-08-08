@@ -23,9 +23,7 @@ Rails.application.routes.draw do
 
   resources :exercises, only: %i[index show]
 
-  resources :workout_templates do
-    resources :workout_template_exercises, only: %i[create update destroy], shallow: true
-  end
+  resources :workout_templates
 
   resources :workout_logs, only: %i[index new create show update] do
     resources :set_logs, only: %i[create update], shallow: true

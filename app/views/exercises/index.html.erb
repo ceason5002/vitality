@@ -1,0 +1,19 @@
+<% content_for :title, "Exercises - Vitality" %>
+
+<h1 class="text-2xl font-bold mb-4">Exercise library</h1>
+
+<div class="flex flex-wrap gap-2 mb-4">
+  <%= link_to "All", exercises_path, class: "px-3 py-1 rounded-full text-sm #{'bg-slate-900 text-white' if @muscle_group.blank?} #{'bg-slate-100 text-slate-700' if @muscle_group.present?}" %>
+  <% Exercise.muscle_groups.keys.each do |mg| %>
+    <%= link_to mg.humanize, exercises_path(muscle_group: mg), class: "px-3 py-1 rounded-full text-sm #{@muscle_group == mg ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}" %>
+  <% end %>
+</div>
+
+<ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+  <% @exercises.each do |exercise| %>
+    <li class="p-3">
+      <%= link_to exercise.name, exercise_path(exercise), class: "font-medium text-sm text-slate-900 hover:text-emerald-700" %>
+      <p class="text-xs text-slate-500"><%= exercise.muscle_group.humanize %> &middot; <%= exercise.equipment.humanize %></p>
+    </li>
+  <% end %>
+</ul>
