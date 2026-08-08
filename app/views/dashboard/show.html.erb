@@ -1,4 +1,14 @@
 <% content_for :title, "Dashboard - Vitality" %>
 
-<h1 class="text-2xl font-bold mb-4">Welcome back, <%= current_user.name %></h1>
-<p class="text-slate-600">Dashboard coming next.</p>
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-2xl font-bold">Welcome back, <%= current_user.name %></h1>
+  <%= link_to "View food log", food_logs_path(date: @date), class: "text-sm text-emerald-700 underline" %>
+</div>
+
+<h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2"><%= @date.strftime("%A, %B %-d") %></h2>
+<%= render "shared/macro_totals", totals: @totals, targets: @targets %>
+
+<h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mt-8 mb-3">Weekly trend</h2>
+<div class="grid gap-4 sm:grid-cols-2">
+  <%= render "shared/weekly_trend_chart", weekly_trend: @weekly_trend %>
+</div>

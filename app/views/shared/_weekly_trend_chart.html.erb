@@ -1,0 +1,42 @@
+<%
+  chart_width = 640
+  chart_height = 160
+%>
+<div class="bg-white rounded-lg border border-slate-200 p-4">
+  <h3 class="text-sm font-semibold text-slate-700 mb-3">Calories - last 7 days</h3>
+  <svg viewBox="0 0 <%= chart_width %> <%= chart_height %>" class="w-full h-40" preserveAspectRatio="none">
+    <polyline
+      fill="none"
+      stroke="#10b981"
+      stroke-width="2"
+      points="<%= sparkline_points(weekly_trend.map { |d| d[:calories].to_f }, width: chart_width, height: chart_height) %>"
+    />
+  </svg>
+  <div class="flex justify-between text-xs text-slate-400 mt-1">
+    <% weekly_trend.each do |d| %>
+      <span><%= d[:date].strftime("%a") %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg border border-slate-200 p-4">
+  <h3 class="text-sm font-semibold text-slate-700 mb-3">Macros (g) - last 7 days</h3>
+  <svg viewBox="0 0 <%= chart_width %> <%= chart_height %>" class="w-full h-40" preserveAspectRatio="none">
+    <polyline fill="none" stroke="#0ea5e9" stroke-width="2"
+      points="<%= sparkline_points(weekly_trend.map { |d| d[:protein_g].to_f }, width: chart_width, height: chart_height) %>" />
+    <polyline fill="none" stroke="#f59e0b" stroke-width="2"
+      points="<%= sparkline_points(weekly_trend.map { |d| d[:carbs_g].to_f }, width: chart_width, height: chart_height) %>" />
+    <polyline fill="none" stroke="#f43f5e" stroke-width="2"
+      points="<%= sparkline_points(weekly_trend.map { |d| d[:fat_g].to_f }, width: chart_width, height: chart_height) %>" />
+  </svg>
+  <div class="flex justify-between text-xs text-slate-400 mt-1">
+    <% weekly_trend.each do |d| %>
+      <span><%= d[:date].strftime("%a") %></span>
+    <% end %>
+  </div>
+  <div class="flex gap-4 text-xs mt-2">
+    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-500 inline-block"></span>Protein</span>
+    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>Carbs</span>
+    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span>Fat</span>
+  </div>
+</div>

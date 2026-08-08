@@ -1,0 +1,18 @@
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+  <% [
+       ["Calories", totals[:calories], targets[:calories], "kcal", "bg-emerald-500"],
+       ["Protein", totals[:protein_g], targets[:protein_g], "g", "bg-sky-500"],
+       ["Carbs", totals[:carbs_g], targets[:carbs_g], "g", "bg-amber-500"],
+       ["Fat", totals[:fat_g], targets[:fat_g], "g", "bg-rose-500"]
+     ].each do |label, actual, target, unit, color| %>
+    <div class="bg-white rounded-lg border border-slate-200 p-3">
+      <p class="text-xs font-medium text-slate-500"><%= label %></p>
+      <p class="text-lg font-bold">
+        <%= actual.round.to_i %><span class="text-xs font-normal text-slate-400">/<%= target ? target.round.to_i : "?" %><%= unit %></span>
+      </p>
+      <div class="mt-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div class="<%= color %> h-full" style="width: <%= progress_percent(actual, target) %>%"></div>
+      </div>
+    </div>
+  <% end %>
+</div>
