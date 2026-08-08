@@ -1,0 +1,90 @@
+<% content_for :title, "Profile - Vitality" %>
+
+<div class="max-w-xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+  <h1 class="text-2xl font-bold mb-2">Your profile</h1>
+  <p class="text-sm text-slate-600 mb-6">
+    Suggested targets are calculated from the Mifflin-St Jeor formula using your stats below.
+    Leave the target fields blank to use the suggested values, or override them manually.
+  </p>
+
+  <%= form_with model: @user, url: profile_path, method: :patch, local: true, class: "space-y-4" do |f| %>
+    <% if @user.errors.any? %>
+      <div class="rounded-md bg-red-50 text-red-700 text-sm p-3">
+        <ul class="list-disc list-inside">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :name, class: "block text-sm font-medium mb-1" %>
+      <%= f.text_field :name, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= f.label :age, class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :age, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :biological_sex, "Biological sex", class: "block text-sm font-medium mb-1" %>
+        <%= f.select :biological_sex, User.biological_sexes.keys.map { |k| [k.humanize, k] }, { include_blank: true }, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= f.label :weight_kg, "Weight (kg)", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :weight_kg, step: 0.1, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :height_cm, "Height (cm)", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :height_cm, step: 0.1, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= f.label :activity_level, class: "block text-sm font-medium mb-1" %>
+        <%= f.select :activity_level, User.activity_levels.keys.map { |k| [k.humanize, k] }, {}, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :goal, class: "block text-sm font-medium mb-1" %>
+        <%= f.select :goal, User.goals.keys.map { |k| [k.humanize, k] }, {}, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h2 class="font-semibold">Manual target overrides (optional)</h2>
+    <p class="text-xs text-slate-500 mb-2">
+      Suggested: <%= @user.suggested_targets[:calories] %> kcal &middot;
+      P <%= @user.suggested_targets[:protein_g] %>g &middot;
+      C <%= @user.suggested_targets[:carbs_g] %>g &middot;
+      F <%= @user.suggested_targets[:fat_g] %>g
+    </p>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= f.label :daily_calorie_target, "Calories", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :daily_calorie_target, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :daily_protein_target_g, "Protein (g)", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :daily_protein_target_g, step: 0.1, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :daily_carbs_target_g, "Carbs (g)", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :daily_carbs_target_g, step: 0.1, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= f.label :daily_fat_target_g, "Fat (g)", class: "block text-sm font-medium mb-1" %>
+        <%= f.number_field :daily_fat_target_g, step: 0.1, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      </div>
+    </div>
+
+    <%= f.submit "Save profile", class: "w-full bg-emerald-600 text-white rounded-md py-2 font-medium hover:bg-emerald-700 cursor-pointer" %>
+  <% end %>
+</div>

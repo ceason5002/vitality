@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "App" %></title>
+    <title><%= content_for(:title) || "Vitality" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitality">
+    <meta name="theme-color" content="#0f172a">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,8 +20,31 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+    <% if user_signed_in? %>
+      <nav class="bg-slate-900 text-white">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <%= link_to "Vitality", root_path, class: "font-bold text-lg tracking-tight" %>
+          <div class="flex flex-wrap items-center gap-4 text-sm">
+            <%= link_to "Dashboard", root_path, class: "hover:text-emerald-400" %>
+            <%= link_to "Food Log", food_logs_path, class: "hover:text-emerald-400" %>
+            <%= link_to "Workouts", workout_templates_path, class: "hover:text-emerald-400" %>
+            <%= link_to "Exercises", exercises_path, class: "hover:text-emerald-400" %>
+            <%= link_to "Profile", edit_profile_path, class: "hover:text-emerald-400" %>
+            <%= button_to "Log out", logout_path, method: :delete, class: "hover:text-emerald-400 bg-transparent p-0 border-0 underline-offset-2 hover:underline cursor-pointer" %>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <main class="container mx-auto px-4 py-6 flex-1 w-full max-w-4xl">
+      <% if notice %>
+        <p class="mb-4 rounded-md bg-emerald-100 text-emerald-800 px-4 py-2 text-sm"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="mb-4 rounded-md bg-red-100 text-red-800 px-4 py-2 text-sm"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>
