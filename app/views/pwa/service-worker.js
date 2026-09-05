@@ -20,8 +20,20 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.mode !== "navigate") return;
 
+  const isLoginPage = new URL(event.request.url).pathname === OFFLINE_URL;
+
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(OFFLINE_URL))
+    fetch(event.request)
+      .then((response) => {
+        // Keep the offline fallback copy fresh (it holds a CSRF token that
+        // expires with the session) whenever we successfully load /login live.
+        if (isLoginPage && event.request.method === "GET" && response.ok) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(OFFLINE_URL, responseClone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(OFFLINE_URL))
   );
 });
 

@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :user_signed_in?
   before_action :require_authentication
+  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_invalid_authenticity_token
 
   private
+
+  def handle_invalid_authenticity_token
+    reset_session
+    redirect_to login_path, alert: "Your session expired. Please try again."
+  end
 
   def current_user
     Current.user ||= User.find_by(id: session[:user_id])
