@@ -1,43 +1,43 @@
 <% content_for :title, "Food Log - Vitality" %>
 
 <div class="flex items-center justify-between mb-4">
-  <%= link_to "← #{(@date - 1).strftime('%b %-d')}", food_logs_path(date: @date - 1), class: "text-sm text-slate-600" %>
+  <%= link_to "← #{(@date - 1).strftime('%b %-d')}", food_logs_path(date: @date - 1), class: "text-sm text-umber-600" %>
   <h1 class="text-xl font-bold"><%= @date.strftime("%A, %B %-d") %></h1>
-  <%= link_to "#{(@date + 1).strftime('%b %-d')} →", food_logs_path(date: @date + 1), class: "text-sm text-slate-600" %>
+  <%= link_to "#{(@date + 1).strftime('%b %-d')} →", food_logs_path(date: @date + 1), class: "text-sm text-umber-600" %>
 </div>
 
 <%= render "shared/macro_totals", totals: @totals, targets: @targets %>
 
-<div class="mt-8 bg-white rounded-lg border border-slate-200 p-4">
+<div class="mt-8 bg-white rounded-lg border border-umber-200 p-4">
   <h2 class="font-semibold mb-3">Log a food</h2>
   <%= form_with url: food_logs_path, method: :get, data: { turbo_frame: "food_results" }, class: "flex gap-2 mb-3" do %>
     <%= hidden_field_tag :date, @date %>
-    <%= text_field_tag :q, @query, placeholder: "Search foods (e.g. chicken breast)", class: "flex-1 rounded-md border-slate-300 shadow-sm" %>
-    <%= submit_tag "Search", class: "bg-slate-800 text-white px-4 rounded-md text-sm cursor-pointer" %>
+    <%= text_field_tag :q, @query, placeholder: "Search foods (e.g. chicken breast)", class: "flex-1 rounded-md border-umber-300 shadow-sm" %>
+    <%= submit_tag "Search", class: "bg-umber-800 text-white px-4 rounded-md text-sm cursor-pointer" %>
   <% end %>
-  <%= link_to "+ Add a custom food to the database", new_food_path, class: "text-sm text-emerald-700 underline" %>
+  <%= link_to "+ Add a custom food to the database", new_food_path, class: "text-sm text-verde-700 underline" %>
 
   <%= turbo_frame_tag "food_results", class: "block mt-3" do %>
     <% if @query.present? %>
-      <ul class="divide-y divide-slate-200">
+      <ul class="divide-y divide-umber-200">
         <% @search_results.each do |food| %>
           <li class="py-3 flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p class="font-medium text-sm"><%= food.name %><% if food.brand.present? %> <span class="text-slate-400 font-normal">(<%= food.brand %>)</span><% end %></p>
-              <p class="text-xs text-slate-500"><%= food.calories.to_i %> kcal &middot; P<%= food.protein_g.to_i %> C<%= food.carbs_g.to_i %> F<%= food.fat_g.to_i %> per <%= food.serving_size_qty %> <%= food.serving_size_unit %></p>
+              <p class="font-medium text-sm"><%= food.name %><% if food.brand.present? %> <span class="text-umber-400 font-normal">(<%= food.brand %>)</span><% end %></p>
+              <p class="text-xs text-umber-500"><%= food.calories.to_i %> kcal &middot; P<%= food.protein_g.to_i %> C<%= food.carbs_g.to_i %> F<%= food.fat_g.to_i %> per <%= food.serving_size_qty %> <%= food.serving_size_unit %></p>
             </div>
             <%= form_with model: FoodLog.new, url: food_logs_path, data: { turbo_frame: "_top" }, class: "flex items-center gap-2" do |f| %>
               <%= hidden_field_tag :date, @date %>
               <%= f.hidden_field :food_id, value: food.id %>
-              <%= f.number_field :servings, value: 1, step: 0.25, min: 0.25, class: "w-16 rounded-md border-slate-300 text-sm" %>
-              <%= f.select :meal_type, FoodLog.meal_types.keys.map { |k| [k.humanize, k] }, {}, class: "rounded-md border-slate-300 text-sm" %>
-              <%= f.submit "Log", class: "bg-emerald-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-emerald-700 cursor-pointer" %>
+              <%= f.number_field :servings, value: 1, step: 0.25, min: 0.25, class: "w-16 rounded-md border-umber-300 text-sm" %>
+              <%= f.select :meal_type, FoodLog.meal_types.keys.map { |k| [k.humanize, k] }, {}, class: "rounded-md border-umber-300 text-sm" %>
+              <%= f.submit "Log", class: "bg-verde-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-verde-700 cursor-pointer" %>
             <% end %>
           </li>
         <% end %>
         <% if @search_results.empty? %>
-          <li class="py-3 text-sm text-slate-500">
-            No matches. <%= link_to "Add \"#{@query}\" as a new food", new_food_path(name: @query), class: "text-emerald-700 underline" %>
+          <li class="py-3 text-sm text-umber-500">
+            No matches. <%= link_to "Add \"#{@query}\" as a new food", new_food_path(name: @query), class: "text-verde-700 underline" %>
           </li>
         <% end %>
       </ul>
@@ -50,19 +50,19 @@
     <h2 class="font-semibold mb-2"><%= meal_type.humanize %></h2>
     <% logs = @grouped[meal_type] || [] %>
     <% if logs.any? %>
-      <ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+      <ul class="bg-white rounded-lg border border-umber-200 divide-y divide-umber-200">
         <% logs.each do |log| %>
           <li class="p-3 flex items-center justify-between gap-2">
             <div>
-              <p class="text-sm font-medium"><%= log.food.name %> <span class="text-slate-400 font-normal">&times; <%= log.servings %></span></p>
-              <p class="text-xs text-slate-500"><%= log.total_calories.round %> kcal &middot; P<%= log.total_protein_g.round %> C<%= log.total_carbs_g.round %> F<%= log.total_fat_g.round %></p>
+              <p class="text-sm font-medium"><%= log.food.name %> <span class="text-umber-400 font-normal">&times; <%= log.servings %></span></p>
+              <p class="text-xs text-umber-500"><%= log.total_calories.round %> kcal &middot; P<%= log.total_protein_g.round %> C<%= log.total_carbs_g.round %> F<%= log.total_fat_g.round %></p>
             </div>
             <%= button_to "Remove", food_log_path(log), method: :delete, class: "text-xs text-red-600 underline bg-transparent border-0 p-0 cursor-pointer" %>
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p class="text-sm text-slate-400">Nothing logged yet.</p>
+      <p class="text-sm text-umber-400">Nothing logged yet.</p>
     <% end %>
   </div>
 <% end %>

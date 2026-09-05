@@ -2,19 +2,19 @@
 
 <div class="flex items-center justify-between mb-4">
   <h1 class="text-2xl font-bold">Workout history</h1>
-  <%= link_to "+ Start workout", new_workout_log_path, class: "bg-emerald-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-emerald-700" %>
+  <%= link_to "+ Start workout", new_workout_log_path, class: "bg-verde-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-verde-700" %>
 </div>
 
 <% if @workout_logs.any? %>
-  <ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+  <ul class="bg-white rounded-lg border border-umber-200 divide-y divide-umber-200">
     <% @workout_logs.each do |log| %>
       <li class="p-3">
         <%= link_to workout_log_path(log), class: "flex items-center justify-between" do %>
           <div>
             <p class="text-sm font-medium"><%= log.workout_template&.name || "Freestyle workout" %></p>
-            <p class="text-xs text-slate-500"><%= log.started_at.strftime("%b %-d, %Y %-I:%M %p") %></p>
+            <p class="text-xs text-umber-500"><%= log.started_at.strftime("%b %-d, %Y %-I:%M %p") %></p>
           </div>
-          <span class="text-xs <%= log.completed? ? 'text-emerald-700' : 'text-amber-600' %>">
+          <span class="text-xs <%= log.completed? ? 'text-verde-700' : 'text-amber-600' %>">
             <%= log.completed? ? "Completed" : "In progress" %>
           </span>
         <% end %>
@@ -22,5 +22,5 @@
     <% end %>
   </ul>
 <% else %>
-  <p class="text-sm text-slate-400">No workouts logged yet.</p>
+  <p class="text-sm text-umber-400">No workouts logged yet.</p>
 <% end %>

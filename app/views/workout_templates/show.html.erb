@@ -2,17 +2,17 @@
 
 <div class="flex items-center justify-between mb-2">
   <h1 class="text-2xl font-bold"><%= @workout_template.name %></h1>
-  <%= button_to "Start workout", workout_logs_path(workout_template_id: @workout_template.id), class: "bg-slate-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
+  <%= button_to "Start workout", workout_logs_path(workout_template_id: @workout_template.id), class: "bg-umber-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
 </div>
-<p class="text-sm text-slate-500 mb-4"><%= @workout_template.description %></p>
+<p class="text-sm text-umber-500 mb-4"><%= @workout_template.description %></p>
 
-<ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+<ul class="bg-white rounded-lg border border-umber-200 divide-y divide-umber-200">
   <% @workout_template.workout_template_exercises.order(:position).each do |wte| %>
     <li class="p-3 text-sm">
       <span class="font-medium"><%= wte.exercise.name %></span>
-      <span class="text-slate-500"> - <%= wte.target_sets %> sets x <%= wte.target_reps_min %>-<%= wte.target_reps_max %> reps</span>
+      <span class="text-umber-500"> - <%= wte.target_sets %> sets x <%= wte.target_reps_min %>-<%= wte.target_reps_max %> reps</span>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "Edit template", edit_workout_template_path(@workout_template), class: "inline-block mt-4 text-sm text-emerald-700 underline" %>
+<%= link_to "Edit template", edit_workout_template_path(@workout_template), class: "inline-block mt-4 text-sm text-verde-700 underline" %>

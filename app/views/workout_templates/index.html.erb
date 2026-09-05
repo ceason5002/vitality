@@ -2,25 +2,25 @@
 
 <div class="flex items-center justify-between mb-4">
   <h1 class="text-2xl font-bold">Workout templates</h1>
-  <%= link_to "+ New template", new_workout_template_path, class: "bg-emerald-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-emerald-700" %>
+  <%= link_to "+ New template", new_workout_template_path, class: "bg-verde-600 text-white text-sm px-3 py-1.5 rounded-md hover:bg-verde-700" %>
 </div>
 
 <% if @workout_templates.any? %>
-  <ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+  <ul class="bg-white rounded-lg border border-umber-200 divide-y divide-umber-200">
     <% @workout_templates.each do |template| %>
       <li class="p-3 flex items-center justify-between gap-2">
         <div>
-          <%= link_to template.name, workout_template_path(template), class: "font-medium text-sm text-slate-900 hover:text-emerald-700" %>
-          <p class="text-xs text-slate-500"><%= pluralize(template.workout_template_exercises.count, "exercise") %></p>
+          <%= link_to template.name, workout_template_path(template), class: "font-medium text-sm text-umber-900 hover:text-verde-700" %>
+          <p class="text-xs text-umber-500"><%= pluralize(template.workout_template_exercises.count, "exercise") %></p>
         </div>
         <div class="flex items-center gap-3 text-sm">
-          <%= button_to "Start workout", workout_logs_path(workout_template_id: template.id), class: "bg-slate-900 text-white text-xs px-3 py-1.5 rounded-md cursor-pointer" %>
-          <%= link_to "Edit", edit_workout_template_path(template), class: "text-slate-500 underline" %>
+          <%= button_to "Start workout", workout_logs_path(workout_template_id: template.id), class: "bg-umber-900 text-white text-xs px-3 py-1.5 rounded-md cursor-pointer" %>
+          <%= link_to "Edit", edit_workout_template_path(template), class: "text-umber-500 underline" %>
           <%= button_to "Delete", workout_template_path(template), method: :delete, class: "text-red-600 underline bg-transparent border-0 p-0 cursor-pointer", form: { data: { turbo_confirm: "Delete this template?" } } %>
         </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p class="text-sm text-slate-400">No workout templates yet. Create one to start planning your training.</p>
+  <p class="text-sm text-umber-400">No workout templates yet. Create one to start planning your training.</p>
 <% end %>

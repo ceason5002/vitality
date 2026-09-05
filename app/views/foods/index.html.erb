@@ -2,21 +2,21 @@
 
 <div class="flex items-center justify-between mb-4">
   <h1 class="text-2xl font-bold">Foods</h1>
-  <%= link_to "+ Add a custom food", new_food_path, class: "text-sm text-emerald-700 underline" %>
+  <%= link_to "+ Add a custom food", new_food_path, class: "text-sm text-verde-700 underline" %>
 </div>
 
 <%= form_with url: foods_path, method: :get, class: "mb-4" do %>
-  <%= text_field_tag :q, @query, placeholder: "Search foods...", class: "w-full rounded-md border-slate-300 shadow-sm" %>
+  <%= text_field_tag :q, @query, placeholder: "Search foods...", class: "w-full rounded-md border-umber-300 shadow-sm" %>
 <% end %>
 
-<ul class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-200">
+<ul class="bg-white rounded-lg border border-umber-200 divide-y divide-umber-200">
   <% @foods.each do |food| %>
     <li class="p-3">
-      <p class="font-medium text-sm"><%= food.name %><% if food.brand.present? %> <span class="text-slate-400 font-normal">(<%= food.brand %>)</span><% end %></p>
-      <p class="text-xs text-slate-500"><%= food.calories.to_i %> kcal &middot; P<%= food.protein_g.to_i %> C<%= food.carbs_g.to_i %> F<%= food.fat_g.to_i %> per <%= food.serving_size_qty %> <%= food.serving_size_unit %></p>
+      <p class="font-medium text-sm"><%= food.name %><% if food.brand.present? %> <span class="text-umber-400 font-normal">(<%= food.brand %>)</span><% end %></p>
+      <p class="text-xs text-umber-500"><%= food.calories.to_i %> kcal &middot; P<%= food.protein_g.to_i %> C<%= food.carbs_g.to_i %> F<%= food.fat_g.to_i %> per <%= food.serving_size_qty %> <%= food.serving_size_unit %></p>
     </li>
   <% end %>
   <% if @foods.empty? %>
-    <li class="p-3 text-sm text-slate-500">No foods found.</li>
+    <li class="p-3 text-sm text-umber-500">No foods found.</li>
   <% end %>
 </ul>

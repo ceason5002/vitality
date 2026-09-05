@@ -1,21 +1,22 @@
 <% content_for :title, "Log in - Vitality" %>
 
-<div class="max-w-md mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-sm border border-umber-200 p-6">
+  <%= image_tag "vitality.png", alt: "Vitality", class: "h-10 w-auto mx-auto mb-6" %>
   <h1 class="text-2xl font-bold mb-6">Log in</h1>
 
   <%= form_with url: login_path, local: true, class: "space-y-4" do |f| %>
     <div>
       <%= f.label :email, class: "block text-sm font-medium mb-1" %>
-      <%= f.email_field :email, required: true, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      <%= f.email_field :email, required: true, class: "w-full rounded-md border-umber-300 shadow-sm" %>
     </div>
 
     <div>
       <%= f.label :password, class: "block text-sm font-medium mb-1" %>
-      <%= f.password_field :password, required: true, class: "w-full rounded-md border-slate-300 shadow-sm" %>
+      <%= f.password_field :password, required: true, class: "w-full rounded-md border-umber-300 shadow-sm" %>
     </div>
 
-    <%= f.submit "Log in", class: "w-full bg-emerald-600 text-white rounded-md py-2 font-medium hover:bg-emerald-700 cursor-pointer" %>
+    <%= f.submit "Log in", class: "w-full bg-verde-600 text-white rounded-md py-2 font-medium hover:bg-verde-700 cursor-pointer" %>
   <% end %>
 
-  <p class="mt-4 text-sm text-slate-600">New here? <%= link_to "Sign up", signup_path, class: "text-emerald-700 underline" %></p>
+  <p class="mt-4 text-sm text-umber-600">New here? <%= link_to "Sign up", signup_path, class: "text-verde-700 underline" %></p>
 </div>

@@ -4,20 +4,20 @@
 
 <div class="space-y-3">
   <% @workout_templates.each do |template| %>
-    <div class="bg-white rounded-lg border border-slate-200 p-4 flex items-center justify-between">
+    <div class="bg-white rounded-lg border border-umber-200 p-4 flex items-center justify-between">
       <div>
         <p class="font-medium text-sm"><%= template.name %></p>
-        <p class="text-xs text-slate-500"><%= pluralize(template.workout_template_exercises.count, "exercise") %></p>
+        <p class="text-xs text-umber-500"><%= pluralize(template.workout_template_exercises.count, "exercise") %></p>
       </div>
-      <%= button_to "Start", workout_logs_path(workout_template_id: template.id), class: "bg-slate-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
+      <%= button_to "Start", workout_logs_path(workout_template_id: template.id), class: "bg-umber-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
     </div>
   <% end %>
 
-  <div class="bg-white rounded-lg border border-slate-200 p-4 flex items-center justify-between">
+  <div class="bg-white rounded-lg border border-umber-200 p-4 flex items-center justify-between">
     <div>
       <p class="font-medium text-sm">Freestyle workout</p>
-      <p class="text-xs text-slate-500">No template - log any exercises</p>
+      <p class="text-xs text-umber-500">No template - log any exercises</p>
     </div>
-    <%= button_to "Start", workout_logs_path, class: "bg-slate-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
+    <%= button_to "Start", workout_logs_path, class: "bg-umber-900 text-white text-sm px-3 py-1.5 rounded-md cursor-pointer" %>
   </div>
 </div>
